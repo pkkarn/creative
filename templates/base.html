@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Blog</title>
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Modak&family=Rancho&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> <!--important css-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+{% if user.is_authenticated %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'blog' %}">
+                <span>Creative</span>
+            </a>
+             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+             </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a href="{% url 'blog' %}" class="nav-link active">BLOG</a>
+                    <a href="{% url 'create' %}" class="nav-link active">CREATE</a>
+                    <a href="{% url 'myfeed' %}" class="nav-link active">{{ user.username|upper }}'S FEED</a>
+                </div>
+                <div class="navbar-nav ml-auto">
+                    <form action="{% url 'logoutuser' %}" method="POST">
+                      {% csrf_token %}
+                      <button type="submit" class="btn btn-danger">Log Out</button>&nbsp;
+                    </form>
+                </div>
+            </div>
+        </div>
+    </nav>
+{% else %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'blog' %}">
+                <span>Creative</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a href="{% url 'blog' %}" class="nav-link active">BLOG</a>
+                     <a href="{% url 'create' %}" class="nav-link active">Create</a>
+                </div>
+                <div class="navbar-nav ml-auto">
+                    <a role="button" class="btn btn-primary" href="{% url 'signupuser' %}">Sign Up</a>&nbsp;
+                    <a role="button" class="btn btn-success" href="{% url 'loginuser' %}">Sign In</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+{% endif %}
+<div class="container">
+    {% block content %}
+
+    {% endblock%}
+</div>
+</body>
+</html>

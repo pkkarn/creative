@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-7 text-left">
+        <div class="jumbotron">
+            <h1>Create Feed</h1><br>
+            <form method="POST">
+                {% csrf_token %}
+                {{ error }}
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" name="title" class="form-control" id="title">
+                </div>
+                <div class="form-group">
+                    <label for="content">Content</label>
+                    <textarea name="content" class="form-control" id="content"></textarea>
+                </div>
+                <button class="btn btn-success" type="submit">POST</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
